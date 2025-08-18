@@ -98,7 +98,7 @@ PROJECTS: ${(PROFILE.projects||[]).map(p => `${p.title}: ${p.desc}`).join(" | ")
   // --- Ask helper with context ---
     async function ask(q) {
     const sys =
-    `You are an assistant that ONLY answers questions about Lars using the PROFILE CONTEXT.
+    `You are an assistant that answers questions about Lars using the PROFILE CONTEXT.
     - Do NOT quote or reproduce the PROFILE CONTEXT verbatim.
     - Summarize relevant facts from the context in your own words.
     - If a question is unrelated to Lars, say briefly that you only answer questions about Lars.
@@ -107,11 +107,11 @@ PROJECTS: ${(PROFILE.projects||[]).map(p => `${p.title}: ${p.desc}`).join(" | ")
     - Keep answers brief with a maximum of three sentences.
 
     ### EXAMPLES
-    User: What programming languages does Lars use?
-    Assistant: Python, MATLAB, C and LaTeX feature most in his work.
+    Prompt: What programming languages does Lars use?
+    Response: Python, MATLAB, C and LaTeX feature most in his work.
 
-    User: Tell me something unrelated to Lars.
-    Assistant: I only answer questions about Lars' profile.
+    Prompt: Tell me something unrelated to Lars.
+    Response: I only answer questions about Lars' profile.
 
     ### PROFILE CONTEXT (DO NOT SHOW THIS IN OUTPUT)
     ${PROFILE_CONTEXT}`;
@@ -121,7 +121,7 @@ PROJECTS: ${(PROFILE.projects||[]).map(p => `${p.title}: ${p.desc}`).join(" | ")
         { role: "system", content: sys },
         { role: "user",   content: q  }
         ],
-        temperature: 0.1,
+        temperature: 0.2,
         max_tokens: 192,
         // Optional stop to prevent echoing the section header
         stop: ["### PROFILE CONTEXT"]
