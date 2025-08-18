@@ -1,16 +1,15 @@
 ---
 layout: default
-title: Lars ten Hacken
+title: Home
 ---
 # Welcome!
 
-This is my GitHub Page using **Markdown**!
+Hi, I’m **Lars ten Hacken** 👋
 
-![Image](images/test.jpg)
+I’m a MSc student in Applied Physics at TU/e, passionate about **fluid dynamics**, **computational modeling**, and **wave prediction**.
 
-<div id="plot"></div>
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<script>
-  var trace = {x:[1,2,3], y:[2,6,3], type:'scatter'};
-  Plotly.newPlot('plot', [trace]);
-</script>
+- 🔬 Currently researching wavefield reconstruction
+- 🌍 Internship at UC Berkeley (USVs & wave prediction)
+- 📚 Aiming for a PhD in active matter / CFD
+
+👉 Learn more [about me](about) or check my [projects](projects).

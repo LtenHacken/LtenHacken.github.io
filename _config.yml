@@ -1,2 +1,13 @@
 title: LtenHacken's Page
 theme: jekyll-theme-cayman
+
+# Optioneel: navigatie menu
+nav:
+  - name: Home
+    link: /
+  - name: About
+    link: /about
+  - name: Projects
+    link: /projects
+  - name: CV
+    link: /cv
