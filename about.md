@@ -47,73 +47,47 @@ In my free time, I enjoy hiking, sailing, and Japanese language learning.
 
 <!-- Import WebLLM via CDN (volgens docs: Using CDN) -->
 <script type="module">
-  import { CreateMLCEngine } from "https://esm.run/@mlc-ai/web-llm";
+  import { CreateMLCEngine, prebuiltAppConfig } from "https://esm.run/@mlc-ai/web-llm@0.2.79";
 
-  const log = document.getElementById('log');
-  const status = document.getElementById('status');
-  const add = (r,t)=>{const d=document.createElement('div');d.textContent=`${r}: ${t}`;log.appendChild(d);log.scrollTop=log.scrollHeight;};
+  // 1) Laat zien welke modellen deze versie kent (100% juiste IDs)
+  console.table(prebuiltAppConfig.model_list.map(m => ({
+    id: m.model_id, // ← dit is de modelID die je moet gebruiken
+    sizeMB: m.vram_required_mb
+  })));
 
-  // 0) Checks
-  if (!('gpu' in navigator)) {
-    add('Error','WebGPU not available. Use latest Chrome/Edge via HTTPS.');
-    throw new Error('No WebGPU');
-  }
+  // Kies een kleine die zeker bestaat, bv. Llama 3.2 1B of Phi 1.1
+  // (of pak er programmatic eentje uit de lijst)
+  const MODEL_ID = "Llama-3.2-1B-Instruct-q4f16_1-MLC";
 
-  // 1) Laad jouw profieldata (let op baseurl in GitHub Pages)
-  const BASE = "{{ site.baseurl }}" || "";
-  let KB = {bio:'', highlights:[], projects:[]};
-  try {
-    const resp = await fetch(`${BASE}/assets/about.json`, { cache: 'no-store' });
-    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-    KB = await resp.json();
-  } catch (e) {
-    add('Error','/assets/about.json niet gevonden'); console.error(e);
-    throw e;
-  }
+  // 2) Progress tonen (zodat je ziet wát eventueel faalt)
+  const statusEl = document.getElementById("status");
+  const initProgressCallback = (p) => {
+    if (statusEl) statusEl.textContent = p.text + (p.url ? " :: " + p.url : "");
+    console.log(p);
+  };
 
-  const context = `BIO: ${KB.bio}
-HIGHLIGHTS: ${KB.highlights.join('; ')}
-PROJECTS: ${KB.projects.map(p=>p.title+': '+p.desc).join(' | ')}`;
-
-  // 2) Start een klein model (MLC model-id) — kies 1 van deze
-  const modelId = "Llama-3.2-1B-Instruct-q4f16_1-MLC";
-  status.textContent = `Loading model: ${modelId} … (first time can take a minute)`;
-
+  // 3) **Juiste** API-call volgens docs: model **als string** meegeven
   let engine;
   try {
-    engine = await CreateMLCEngine({ model: modelId }, { gpuMemoryUtility: 0.9, wasmNumThreads: 1 });
-    status.textContent = `Model ready: ${modelId}`;
+    engine = await CreateMLCEngine(
+      MODEL_ID,                                 // ← string, geen object!
+      { initProgressCallback, wasmNumThreads: 1, gpuMemoryUtility: 0.9 }
+    );
+    if (statusEl) statusEl.textContent = `Model ready: ${MODEL_ID}`;
   } catch (e) {
-    console.error(e);
-    status.textContent = "Model load failed.";
-    add('Error','Model load failed.');
-    throw e;
+    console.error("Model load failed", e);
+    if (statusEl) statusEl.textContent = "Model load failed.";
+    // Tip: kies hier automatisch een andere uit prebuiltAppConfig.model_list
+    return;
   }
 
-  async function ask(q) {
-    const sys = `You ONLY answer about Lars using this profile context. If unrelated, say you only answer about Lars.
-### PROFILE CONTEXT
-${context}`;
-    const out = await engine.chat.completions.create({
-      messages: [{ role:'system', content: sys }, { role:'user', content: q }],
-      temperature: 0.2, max_tokens: 256
-    });
-    return out.choices[0].message.content;
-  }
-
-  document.getElementById('send').onclick = async () => {
-    const box = document.getElementById('q');
-    const q = box.value.trim(); if (!q) return;
-    add('You', q); box.value = '';
-    status.textContent = 'Thinking…';
-    try {
-      const a = await ask(q);
-      add('Bot', a);
-    } catch (e) {
-      add('Error', 'Generation error.');
-      console.error(e);
-    } finally {
-      status.textContent = '';
-    }
-  };
+  // 4) Kleine rooktest (werkt zonder jouw about.json)
+  const out = await engine.chat.completions.create({
+    messages: [
+      { role: "system", content: "You answer in one short sentence." },
+      { role: "user", content: "Say hi." }
+    ],
+    temperature: 0.2, max_tokens: 32
+  });
+  console.log(out.choices[0].message.content);
 </script>
