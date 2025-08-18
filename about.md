@@ -37,6 +37,12 @@ In my free time, I enjoy hiking, sailing, and Japanese language learning.
 <script src="https://cdn.jsdelivr.net/npm/@mlc-ai/web-llm@0.2.74/dist/webllm.min.js"></script>
 
 <script>
+if (!window.webllm) {
+  console.error('WebLLM failed to load'); 
+  document.getElementById('log')?.append('Error: WebLLM script not loaded.');
+}
+
+
 (async () => {
   const log = document.getElementById('log');
   const status = document.getElementById('status');
