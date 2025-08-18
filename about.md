@@ -110,9 +110,6 @@ PROJECTS: ${(PROFILE.projects||[]).map(p => `${p.title}: ${p.desc}`).join(" | ")
     Prompt: What programming languages does Lars use?
     Response: Python, MATLAB, C and LaTeX feature most in his work.
 
-    Prompt: Tell me something unrelated to Lars.
-    Response: I only answer questions about Lars' profile.
-
     ### PROFILE CONTEXT (DO NOT SHOW THIS IN OUTPUT)
     ${PROFILE_CONTEXT}`;
 
