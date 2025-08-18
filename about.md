@@ -40,79 +40,62 @@ In my free time, I enjoy hiking, sailing, and Japanese language learning.
 (async () => {
   const log = document.getElementById('log');
   const status = document.getElementById('status');
-  const add = (role, text) => {
-    const div = document.createElement('div');
-    div.textContent = `${role}: ${text}`;
-    log.appendChild(div);
-    log.scrollTop = log.scrollHeight;
-  };
+  const add = (r,t)=>{const d=document.createElement('div');d.textContent=`${r}: ${t}`;log.appendChild(d);log.scrollTop=log.scrollHeight;};
 
-  // 0) Basic checks
-  if (!('gpu' in navigator)) {
-    add('System', 'WebGPU not available in this browser. Use latest Chrome/Edge on desktop.');
-    return;
-  }
+  if(!('gpu' in navigator)){ add('Error','WebGPU not available—probeer Chrome/Edge desktop via HTTPS.'); return; }
 
-  // 1) Pad naar JSON corrigeren voor GitHub Pages met baseurl
-  const BASE = '{{ site.baseurl }}' || '';
-  let KB = {bio:'', highlights:[], projects:[]};
-  try {
-    const resp = await fetch(`${BASE}/assets/about.json`, {cache:'no-store'});
-    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-    KB = await resp.json();
-  } catch (e) {
-    add('Error', 'Could not load /assets/data/about.json → check pad/bestand.');
-    console.error(e);
-    return;
-  }
+  // 1) Knowledge laden (laat zoals je had)
+  const BASE='{{ site.baseurl }}'||'';
+  let KB={bio:'',highlights:[],projects:[]};
+  try{
+    const resp=await fetch(`${BASE}/assets/data/about.json`,{cache:'no-store'});
+    if(!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    KB=await resp.json();
+  }catch(e){ add('Error','/assets/data/about.json niet gevonden.'); console.error(e); return; }
 
-  const context = `BIO: ${KB.bio}
+  const context=`BIO: ${KB.bio}
 HIGHLIGHTS: ${KB.highlights.join('; ')}
 PROJECTS: ${KB.projects.map(p=>p.title+': '+p.desc).join(' | ')}`;
 
-  // 2) Start een klein, zeker-bestaand model in WebLLM
-  // Tip: deze model-id werkt in de officiële WebLLM builds.
-  status.textContent = 'Loading model (Qwen2.5-0.5B-Instruct)… first time can take a minute.';
-  let engine;
-  try {
-    engine = await webllm.CreateMLCEngine(
-      { model: "Qwen2.5-0.5B-Instruct-q4f16_1-MLC" }, // ✅ bekende model-id
-      { gpuMemoryUtility: 0.9 } // iets vriendelijker met VRAM
-    );
-  } catch (e) {
-    add('Error', 'Model load failed. Check network/HTTPS or try a different browser.');
-    console.error(e);
-    return;
-  }
-  status.textContent = 'Model ready.';
+  // 2) Probeer meerdere bekende, lichte modellen
+  const candidates = [
+    "Llama-3.2-1B-Instruct-q4f16_1-MLC",
+    "Qwen2.5-0.5B-Instruct-q4f16_1-MLC",
+    "Phi-1.1-q4f16_1-MLC"
+  ];
 
-  async function ask(q){
-    const sys = `You are a helpful assistant that ONLY answers using the provided profile context.
-If the question is unrelated, say briefly that you only answer about Lars.
-### PROFILE CONTEXT
-${context}`;
-    try {
-      const out = await engine.chat.completions.create({
-        messages: [{role:'system',content:sys},{role:'user',content:q}],
-        temperature: 0.2, max_tokens: 256
-      });
-      return out.choices[0].message.content;
-    } catch (e) {
-      console.error(e);
-      return 'Sorry, something went wrong while generating an answer.';
+  let engine=null, lastErr=null;
+  for (const m of candidates){
+    try{
+      status.textContent = `Loading model: ${m} …`;
+      engine = await webllm.CreateMLCEngine(
+        { model: m },
+        { gpuMemoryUtility: 0.9, wasmNumThreads: 1 } // 1 thread is veiliger op GitHub Pages
+      );
+      status.textContent = `Model ready: ${m}`;
+      break;
+    }catch(e){
+      console.warn('Model failed', m, e);
+      lastErr = e;
     }
   }
+  if(!engine){ add('Error','Model load failed for all candidates. Zie console (F12) voor details.'); console.error(lastErr); return; }
 
-  document.getElementById('send').onclick = async () => {
-    const box = document.getElementById('q');
-    const q = box.value.trim();
-    if(!q) return;
-    add('You', q);
-    box.value = '';
-    status.textContent = 'Thinking…';
-    const a = await ask(q);
-    status.textContent = '';
-    add('Bot', a);
+  async function ask(q){
+    const sys=`You ONLY answer about Lars using this profile context. If unrelated, say you only answer about Lars.\n### PROFILE CONTEXT\n${context}`;
+    try{
+      const out = await engine.chat.completions.create({
+        messages:[{role:'system',content:sys},{role:'user',content:q}],
+        temperature:0.2, max_tokens:256
+      });
+      return out.choices[0].message.content;
+    }catch(e){ console.error(e); return 'Generation error.'; }
+  }
+
+  document.getElementById('send').onclick = async ()=>{
+    const box=document.getElementById('q'); const q=box.value.trim(); if(!q) return;
+    add('You', q); box.value=''; status.textContent='Thinking…';
+    const a = await ask(q); status.textContent=''; add('Bot', a);
   };
 })();
 </script>
