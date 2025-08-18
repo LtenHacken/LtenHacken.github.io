@@ -1,13 +1,50 @@
-
 {
-  "bio": "MSc Applied Physics (TU/e). Wave prediction, CFD, LBM.",
+  "bio": "MSc Applied Physics student (TU/e) with specialization in Fluid Dynamics, Computational Physics, and Soft Matter. Experienced in wave prediction, CFD, and Lattice Boltzmann Methods. Skilled in Python, MATLAB, C, and LaTeX, with strong leadership and organizational experience.",
   "highlights": [
-    "UC Berkeley internship (USVs, wave prediction)",
-    "HOS / Kalman filtering onderzoek",
-    "Programmeertalen: Python, MATLAB, C, LaTeX"
+    "Visiting Researcher at UC Berkeley (Theoretical and Applied Fluid Dynamics Laboratory, wave prediction with USVs, funded by NL Scholarship Grant, 2.500)",
+    "Visiting Researcher at Tsinghua University (icing under complex conditions, co-supervised by TU/e and Tsinghua professors)",
+    "President of Junior Enterprise Netherlands (national board leadership, €800k turnover, 300+ student consultants, 250+ projects)",
+    "Trainer and Speaker at De AI Workshop (leading hands-on training sessions on AI)",
+    "TU/e Student Ambassador (promotion at open days, education fairs, high schools)",
+    "Participant in Netherlands Asia Honors Summer School (prestigious Asia-Western relations program, Hong Kong/Vietnam)"
   ],
+  
   "projects": [
-    {"title":"Wave Prediction Models","desc":"HOS, LWT, CWM, EnKF."},
-    {"title":"Von Kármán LBM","desc":"C-implementatie met validatie."}
-  ]
+    {
+      "title": "Phase-Resolved Ocean Wave Prediction",
+      "desc": "HOS, LWT, CWM, and Ensemble Kalman Filtering models for reconstruction and forecasting using sparse USV data."
+    },
+    {
+      "title": "Von Kármán Vortex Street Simulation",
+      "desc": "Lattice Boltzmann Method (LBM) in C with validation against theoretical models."
+    },
+    {
+      "title": "Icing under Complex Conditions",
+      "desc": "Experimental and numerical thesis work at Tsinghua University, supervised by Federico Toschi and Chao Sun."
+    },
+    {
+      "title": "Business Core Eindhoven (Treasurer)",
+      "desc": "Managed €60k budget and organized Eindhoven’s largest student symposium."
+    },
+    {
+      "title": "UniPartners Eindhoven",
+      "desc": "Committee member responsible for sales and professional network expansion."
+    }
+  ],
+
+  "extracurricular": [
+    "TU/e Honors Academy (completed during BSc Applied Physics, 215/180 ECTS)",
+    "Member of Van der Waals (Applied Physics study association, Eindhoven)",
+    "E.S.C student association and E.S.H.V Don Quishoot hockey club"
+  ],
+
+  "hobbies": [
+    "Hiking", "Hockey", "Skiing", "Guitar", "Running", "Hanging out with friends", "Drinking beers with friends"
+  ],
+
+  "skills": {
+    "programming": ["Python", "MATLAB", "Wolfram Mathematica", "C", "Linux", "Git", "HPC (OpenACC/OpenMPI)"],
+    "professional": ["Leadership", "Communication", "Teaching", "Critical Thinking", "Writing"],
+    "languages": ["Dutch (native)", "English (fluent)", "German (intermediate receptive)"]
+  }
 }
