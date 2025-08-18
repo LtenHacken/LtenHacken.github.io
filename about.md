@@ -34,7 +34,7 @@ In my free time, I enjoy hiking, sailing, and Japanese language learning.
 </div>
 
 <!-- WebLLM runtime (global 'webllm') -->
-<script src="https://cdn.jsdelivr.net/npm/@mlc-ai/web-llm@0.2.74/dist/webllm.min.js"></script>
+<script src="https://mlc.ai/web-llm/dist/webllm.min.js"></script>
 
 <script>
 if (!window.webllm) {
