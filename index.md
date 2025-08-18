@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Home
+.main-content { max-width: 100% !important; }
 ---
 # Welcome!
 
@@ -13,3 +14,4 @@ I’m a MSc student in Applied Physics at TU/e, passionate about **fluid dynamic
 - 📚 Aiming for a PhD in active matter / CFD
 
 👉 Learn more [about me](about) or check my [projects](projects).
+
