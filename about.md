@@ -57,7 +57,7 @@ In my free time, I enjoy hiking, sailing, and Japanese language learning.
   const BASE = '{{ site.baseurl }}' || '';
   let KB = {bio:'', highlights:[], projects:[]};
   try {
-    const resp = await fetch(`${BASE}/assets/data/about.json`, {cache:'no-store'});
+    const resp = await fetch(`${BASE}/assets/about.json`, {cache:'no-store'});
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
     KB = await resp.json();
   } catch (e) {
