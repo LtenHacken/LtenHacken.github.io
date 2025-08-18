@@ -23,21 +23,10 @@ In my free time, I enjoy hiking, sailing, and Japanese language learning.
   
 [📄 Download PDF](assets/Lars_ten_Hacken_CV.pdf)
 
-<!-- === SIMPLE WEBLLM CHAT (WORKING MINIMAL) === -->
-<div id="llm-chat" style="max-width:900px;margin:auto">
-  <h3>Ask about me</h3>
-  <div id="llm-log" style="border:1px solid #ddd;height:320px;overflow:auto;padding:10px;font-family:monospace;white-space:pre-wrap"></div>
-  <div style="margin-top:8px;display:flex;gap:8px">
-    <input id="llm-q" placeholder="Ask about my research, projects, skills…" style="flex:1">
-    <button id="llm-send">Send</button>
-  </div>
-  <div id="llm-status" style="margin-top:6px;color:#666"></div>
-</div>
-
 <script type="module">
   import { CreateMLCEngine, prebuiltAppConfig } from "https://esm.run/@mlc-ai/web-llm@0.2.79";
 
-  // --- Simple DOM helpers ---
+  // --- DOM helpers ---
   const logEl = document.getElementById("llm-log");
   const statusEl = document.getElementById("llm-status");
   const qEl = document.getElementById("llm-q");
@@ -49,50 +38,61 @@ In my free time, I enjoy hiking, sailing, and Japanese language learning.
     logEl.scrollTop = logEl.scrollHeight;
   };
 
-  // --- Basic checks ---
   if (!("gpu" in navigator)) {
     add("Error", "WebGPU not available. Use latest Chrome/Edge via HTTPS.");
     throw new Error("No WebGPU");
   }
 
-  // --- Pick a valid small instruct model automatically from SDK list ---
-  // Prefer smallest VRAM "Instruct" model; fallback to the first in list.
+  // --- Load profile context from JSON ---
+  const BASE = "{{ site.baseurl }}" || "";
+  let PROFILE = { bio: "", highlights: [], projects: [] };
+  try {
+    const resp = await fetch(`${BASE}/assets/about.json`, { cache: "no-store" });
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    PROFILE = await resp.json();
+  } catch (e) {
+    add("Error", "Could not load /assets/about.json");
+    console.error(e);
+  }
+
+  const PROFILE_CONTEXT = `BIO: ${PROFILE.bio}
+HIGHLIGHTS: ${PROFILE.highlights?.join("; ")}
+PROJECTS: ${(PROFILE.projects||[]).map(p => `${p.title}: ${p.desc}`).join(" | ")}`;
+
+  // --- Pick a small instruct model ---
   const models = prebuiltAppConfig.model_list || [];
   const instruct = models.filter(m => /Instruct/.test(m.model_id))
                          .sort((a,b) => (a.vram_required_mb||1e9) - (b.vram_required_mb||1e9));
   const MODEL_ID = (instruct[0]?.model_id) || (models[0]?.model_id);
   if (!MODEL_ID) {
-    add("Error", "No prebuilt models available in this WebLLM version.");
-    throw new Error("No models in prebuiltAppConfig");
+    add("Error", "No prebuilt models available.");
+    throw new Error("No models");
   }
 
-  // --- Progress callback (shows exactly what is loading) ---
   const initProgressCallback = (p) => {
     statusEl.textContent = p.text + (p.url ? " :: " + p.url : "");
-    // console.log(p); // uncomment to see detailed steps in console
   };
 
-  // --- Init engine (IMPORTANT: pass model as STRING per current API) ---
   let engine;
   try {
-    statusEl.textContent = `Loading model: ${MODEL_ID} … (first time may take a minute)`;
-    engine = await CreateMLCEngine(
-      MODEL_ID,
-      { initProgressCallback, wasmNumThreads: 1, gpuMemoryUtility: 0.9 }
-    );
+    statusEl.textContent = `Loading model: ${MODEL_ID} …`;
+    engine = await CreateMLCEngine(MODEL_ID, { initProgressCallback, wasmNumThreads: 1, gpuMemoryUtility: 0.9 });
     statusEl.textContent = `Model ready: ${MODEL_ID}`;
   } catch (e) {
     console.error("Model load failed", e);
-    statusEl.textContent = "Model load failed. See console.";
-    add("Error", "Model load failed. Try refreshing or another Chromium browser.");
+    add("Error", "Model load failed.");
     throw e;
   }
 
-  // --- Ask helper ---
+  // --- Ask helper with context ---
   async function ask(q) {
+    const sys = `You are a helpful assistant that ONLY answers about Lars using the PROFILE CONTEXT.
+If the question is unrelated, briefly say you only answer about Lars.
+### PROFILE CONTEXT
+${PROFILE_CONTEXT}`;
     const out = await engine.chat.completions.create({
       messages: [
-        { role: "system", content: "Answer concisely about Lars and his work." },
+        { role: "system", content: sys },
         { role: "user", content: q }
       ],
       temperature: 0.2,
@@ -101,7 +101,7 @@ In my free time, I enjoy hiking, sailing, and Japanese language learning.
     return out.choices[0].message.content;
   }
 
-  // --- Wire up UI ---
+  // --- UI wiring ---
   async function handleSend() {
     const q = qEl.value.trim();
     if (!q) return;
@@ -109,8 +109,7 @@ In my free time, I enjoy hiking, sailing, and Japanese language learning.
     qEl.value = "";
     statusEl.textContent = "Thinking…";
     try {
-      const a = await ask(q);
-      add("Bot", a);
+      add("Bot", await ask(q));
     } catch (e) {
       console.error(e);
       add("Error", "Generation error.");
@@ -119,10 +118,7 @@ In my free time, I enjoy hiking, sailing, and Japanese language learning.
     }
   }
   sendBtn.addEventListener("click", handleSend);
-  qEl.addEventListener("keydown", (ev) => {
-    if (ev.key === "Enter") handleSend();
-  });
+  qEl.addEventListener("keydown", ev => { if (ev.key === "Enter") handleSend(); });
 
-  // Optional: initial hello
-  add("System", `Loaded ${MODEL_ID}. Ask me something!`);
+  add("System", `Loaded ${MODEL_ID} with context. Ask me something!`);
 </script>
