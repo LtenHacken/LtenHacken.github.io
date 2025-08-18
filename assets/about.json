@@ -1,0 +1,13 @@
+
+{
+  "bio": "MSc Applied Physics (TU/e). Wave prediction, CFD, LBM.",
+  "highlights": [
+    "UC Berkeley internship (USVs, wave prediction)",
+    "HOS / Kalman filtering onderzoek",
+    "Programmeertalen: Python, MATLAB, C, LaTeX"
+  ],
+  "projects": [
+    {"title":"Wave Prediction Models","desc":"HOS, LWT, CWM, EnKF."},
+    {"title":"Von Kármán LBM","desc":"C-implementatie met validatie."}
+  ]
+}
