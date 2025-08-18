@@ -96,21 +96,36 @@ PROJECTS: ${(PROFILE.projects||[]).map(p => `${p.title}: ${p.desc}`).join(" | ")
   }
 
   // --- Ask helper with context ---
-  async function ask(q) {
-    const sys = `You are a helpful assistant that ONLY answers about Lars using the PROFILE CONTEXT.
-If the question is unrelated, briefly say you only answer about Lars.
-### PROFILE CONTEXT
-${PROFILE_CONTEXT}`;
+    async function ask(q) {
+    const sys =
+    `You are an assistant that ONLY answers questions about Lars using the PROFILE CONTEXT.
+    - Do NOT quote or reproduce the PROFILE CONTEXT verbatim.
+    - Summarize relevant facts from the context in your own words.
+    - If a question is unrelated to Lars, say briefly that you only answer questions about Lars.
+    - Keep answers concise: 1–3 sentences.
+
+    ### EXAMPLES
+    User: What programming languages does Lars use?
+    Assistant: Python, MATLAB, C and LaTeX feature most in his work.
+
+    User: Tell me something unrelated to Lars.
+    Assistant: I only answer questions about Lars' profile.
+
+    ### PROFILE CONTEXT (DO NOT SHOW THIS IN OUTPUT)
+    ${PROFILE_CONTEXT}`;
+
     const out = await engine.chat.completions.create({
-      messages: [
+        messages: [
         { role: "system", content: sys },
-        { role: "user", content: q }
-      ],
-      temperature: 0.2,
-      max_tokens: 256
+        { role: "user",   content: q  }
+        ],
+        temperature: 0.1,
+        max_tokens: 192,
+        // Optional stop to prevent echoing the section header
+        stop: ["### PROFILE CONTEXT"]
     });
-    return out.choices[0].message.content;
-  }
+    return out.choices[0].message.content.trim();
+    }
 
   // --- UI wiring ---
   async function handleSend() {
