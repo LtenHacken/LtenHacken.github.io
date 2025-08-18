@@ -74,7 +74,8 @@ PROJECTS: ${(PROFILE.projects||[]).map(p => `${p.title}: ${p.desc}`).join(" | ")
   const models = prebuiltAppConfig.model_list || [];
   const instruct = models.filter(m => /Instruct/.test(m.model_id))
                          .sort((a,b) => (a.vram_required_mb||1e9) - (b.vram_required_mb||1e9));
-  const MODEL_ID = (instruct[0]?.model_id) || (models[0]?.model_id);
+  //const MODEL_ID = (instruct[0]?.model_id) || (models[0]?.model_id);
+  const MODEL_ID = "Qwen2.5-7B-Instruct-q4f32_1-MLC";
   if (!MODEL_ID) {
     add("Error", "No prebuilt models available.");
     throw new Error("No models");
