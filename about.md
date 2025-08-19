@@ -5,7 +5,7 @@ title: About
 
 # About Me
 
-![Profile picture](assets/images/profile.jpg){:style="width:200px;border-radius:50%;"}
+![Profile picture](assets/images/profile.jpeg){:style="width:200px;border-radius:50%;"}
 
 On this page my education and experiences are further elaborated. My CV is attached at the bottom of this page.
 
@@ -23,7 +23,10 @@ In my free time, I enjoy hiking, sailing, and Japanese language learning.
   
 [📄 Download PDF](assets/Lars_ten_Hacken_CV.pdf)
 
+
 <!-- === SIMPLE WEBLLM CHAT (WORKING MINIMAL) === -->
+
+<!-- 
 <div id="llm-chat" style="max-width:900px;margin:auto">
   <h3>Ask about me</h3>
   <div id="llm-log" style="border:1px solid #ddd;height:320px;overflow:auto;padding:10px;font-family:monospace;white-space:pre-wrap"></div>
@@ -147,4 +150,4 @@ PROJECTS: ${(PROFILE.projects||[]).map(p => `${p.title}: ${p.desc}`).join(" | ")
   qEl.addEventListener("keydown", ev => { if (ev.key === "Enter") handleSend(); });
 
   add("System", `Loaded ${MODEL_ID} with context. Ask me something!`);
-</script>
+</script> -->
