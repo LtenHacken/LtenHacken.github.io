@@ -7,7 +7,7 @@ title: Home
 
 Hi, I’m **Lars ten Hacken**. Welcome to my personal website!
 
-![Profile picture](assets/profile.jpeg){:style="width:300px;"}      ``border-radius:50%;"}``
+![Profile picture](assets/profile.jpeg){:style="width:300px; border-radius:20%;"}``
 
 ## Profile
 I’m a MSc student in Applied Physics at Eindhoven University of Technology, pursuing the track Fluids, Bio- and Softmatter. I am passionate about **fluid dynamics**, **soft matter physics** and **computational physics**. Currently I am located in the United States for a six month appointment as visiting researcher at the Theoretical and Applied Fluid Dynamics Laboratory (taflab.berkeley.edu) of the University of California, Berkeley, working on a project in ocean wave reconstruction and prediction. In November, I return to the Netherlands to start my graduation project in collaboration with Tsinghua University, where I will conduct reasearch from February to May, in icing under complex conditions. My main interests are computational fluid dynamics, soft matter and active matter physics. 
