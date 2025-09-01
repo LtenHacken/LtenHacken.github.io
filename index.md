@@ -10,8 +10,8 @@ Hi, I’m **Lars ten Hacken**. Welcome to my personal website!
 <div style="display: flex; align-items: center; gap: 20px;">
   <img src="assets/profile.jpeg" alt="Profile picture" style="width: 300px; border-radius: 40%;">
   <div style="display: flex; flex-direction: column; gap: 10px;">
-    <img src="assets/Berkeley.png" alt="UC Berkeley logo" style="width: 80px;">
-    <img src="assets/TUE.png" alt="TU Delft logo" style="width: 80px;">
+    <img src="assets/TUE.png" alt="TU Delft logo" style="width: 120px;">
+    <img src="assets/Berkeley.png" alt="UC Berkeley logo" style="width: 120px;">
     </div>
 </div>
 
