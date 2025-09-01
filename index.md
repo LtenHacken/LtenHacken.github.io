@@ -1,7 +1,10 @@
 ---
 layout: default
 title: Home
-.main-content { max-width: 100% !important; }
+.main-content { 
+    max-width: 100% !important; 
+    margin: 0 auto;
+}
 ---
 # Welcome!
 
