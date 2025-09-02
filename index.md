@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Home
+title:
 .main-content { 
     max-width: 100% !important; 
     margin: 0 auto;
@@ -24,9 +24,9 @@ I’m a MSc student in Applied Physics at Eindhoven University of Technology, pu
 ## Background 
 During my academic carreer I have developed proficiency in a multitude of programming languages and frameworks aimed at scientific computing, engineering and artificial intelligence. I consider myself well experienced in Python, having done projects involving object-oriented programming and writing modules. Besides Python, I have worked on projects involving control and simulation using Matlab and Simulink, used Wolfram Mathematica for symbolic math and scripting, and have experience working with Git, Linux, C and openACC on fluid simulations and HPC applications. Two projects I'd like to highlight are:
 
-- Ocean wave reconstruction and prediction using the Higher Order Spectral (HOS) method and Ensemble Kalman Filtering (EnKF). Supported bij a €2.500 grant.
+- Ocean wave reconstruction and prediction using the Higher Order Spectral (HOS) method and Ensemble Kalman Filtering (EnKF). Supported bij a €2.500 grant. During this project I made use of HOS-Ocean, an open-soure Fortran based solver for nonlinear waves. I developped my own Python code to run experiments and simulate ocean wave reconstruction using different methods. The final method used the HOS Method to solve the non-linear physics with Ensemble Kalman Filtering for data assimilation. 
 
-- High Performance Computing (HPC) implementation of the Lattice Boltmann method in C using OpenACC
+- High Performance Computing (HPC) implementation of the Lattice Boltmann Method in C using OpenACC. This project was an introduction into HPC and GPU parallelization for LBM simulations. I simulated classic fluid dynamics examples such as the Pouiselle flow and Karaman vortex street to validate the phsyics, while optimizing the code to maximimze the amount of lattice updates per second. 
 
 Besides my academic carreer, I have been active in a multitude of organisations to broaden my horizon and develop myself both personally and professionaly. From these experiences I would like to highlight: 
 
