@@ -20,6 +20,87 @@
     <header class="page-header" role="banner" style="background-image: url('/assets/images/main/banner.jpg'); background-size: cover; background-position: center; height: 300px;">
       </header>
 
+    <nav class="site-navigation" aria-label="Main navigation">
+      <a href="{{ '/' | relative_url }}">Home</a>
+      <a href="{{ '/#projects' | relative_url }}">Projects</a>
+      <a href="{{ '/#about-me' | relative_url }}">About Me</a>
+      {% unless page.url == '/' %}
+        <a href="{{ '/' | relative_url }}" onclick="if (window.history.length > 1) { window.history.back(); return false; }">&larr; Back</a>
+      {% endunless %}
+    </nav>
+
+    <style>
+      body {
+        font-size: 20px;
+      }
+
+      body * {
+        font-size: 20px !important;
+      }
+
+      .main-content {
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 1300px !important;
+        padding-right: 3rem;
+        padding-left: 3rem;
+        line-height: 1.7;
+        text-align: justify;
+      }
+
+      body h1,
+      body h2,
+      body h3,
+      body h4,
+      body h5,
+      body h6 {
+        font-size: 45px !important;
+      }
+
+      .project-page,
+      .project-page * {
+        font-size: 16px !important;
+      }
+
+      .project-page h2 {
+        font-size: 35px !important;
+      }
+
+      .project-page h1 {
+        font-size: 45px !important;
+      }
+
+      .site-navigation {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.5rem 1.5rem;
+        padding: 1rem 1.5rem;
+        background: #fff;
+        border-bottom: 1px solid #e5e7eb;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      }
+
+      .site-navigation a {
+        color: #157878;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .site-navigation a:hover,
+      .site-navigation a:focus-visible {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 700px) {
+        .main-content {
+          padding-right: 1.25rem;
+          padding-left: 1.25rem;
+        }
+      }
+    </style>
+
     <main id="content" class="main-content" role="main">
       {{ content }}
 

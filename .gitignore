@@ -1,0 +1,11 @@
+# Jekyll build output and local caches
+_site/
+.jekyll-cache/
+.jekyll-metadata
+
+# Bundler's local install directory, if used
+.bundle/
+vendor/bundle/
+
+Gemfile
+Gemfile.lock
