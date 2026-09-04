@@ -16,6 +16,7 @@ permalink: /
   .profile-logos img { width: 500px; max-height: 100px; object-fit: contain; }
   .project-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
   .project-card { position: relative; display: block; min-height: 230px; overflow: hidden; border-radius: 10px; background-image: url("{{ '/assets/images/main/banner.jpg' | relative_url }}"); background-position: center; background-size: cover; color: white !important; box-shadow: 0 5px 18px rgba(0, 0, 0, 0.16); transition: transform 180ms ease, box-shadow 180ms ease; }
+  .project-card.vicsek-card { background-image: url("{{ '/assets/images/projects/vicsek/vicsek-ordered.gif' | relative_url }}"); background-position: center 90%; background-size: 115% auto; }
   .project-card:nth-child(2) { background-position: center 35%; }
   .project-card:nth-child(3) { background-position: center 65%; }
   .project-card:nth-child(4) { background-position: center 80%; }
@@ -49,9 +50,10 @@ permalink: /
 
 <section class="home-section" id="projects">
   <h2>Projects</h2>
+  <p>Currently, I am reading <em>Soft Matter: Concepts, Phenomena, and Applications</em> by Wim van Saarloos, Vincenzo Vitelli, and Zorana Zeravcic, and <em>Statistical Mechanics: Entropy, Order Parameters, and Complexity</em> by James P. Sethna.</p>
   <p>A selection of my physics and computational research projects. Full project pages will be added soon.</p>
   <div class="project-grid">
-    <a class="project-card" href="{{ '/projects/project-one/' | relative_url }}" aria-label="Open Collective Motion with the Vicsek Model"><span class="project-card-text"><strong>Collective Motion with the Vicsek Model</strong><span>View project</span></span></a>
+    <a class="project-card vicsek-card" href="{{ '/projects/project-one/' | relative_url }}" aria-label="Open Collective Motion with the Vicsek Model"><span class="project-card-text"><strong>Collective Motion with the Vicsek Model</strong><span>View project</span></span></a>
     <a class="project-card" href="{{ '/projects/project-two/' | relative_url }}" aria-label="Open project two"><span class="project-card-text"><strong>Project Two</strong><span>View project</span></span></a>
     <a class="project-card" href="{{ '/projects/project-three/' | relative_url }}" aria-label="Open project three"><span class="project-card-text"><strong>Project Three</strong><span>View project</span></span></a>
     <a class="project-card" href="{{ '/projects/project-four/' | relative_url }}" aria-label="Open project four"><span class="project-card-text"><strong>Project Four</strong><span>View project</span></span></a>

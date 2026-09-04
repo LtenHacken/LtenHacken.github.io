@@ -7,5 +7,9 @@ _site/
 .bundle/
 vendor/bundle/
 
+# Python-generated caches
+__pycache__/
+*.py[cod]
+
 Gemfile
 Gemfile.lock
