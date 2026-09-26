@@ -13,3 +13,13 @@ __pycache__/
 
 Gemfile
 Gemfile.lock
+
+# LaTeX sources
+*.tex
+
+# Full paper (not published)
+assets/images/projects/internship/MainPRF.pdf
+
+# Thesis and paper sources (never publish)
+assets/images/projects/thesis/paper/
+assets/images/projects/internship/chapters/

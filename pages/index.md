@@ -20,6 +20,12 @@ permalink: /
   .project-card:nth-child(2) { background-position: center 35%; }
   .project-card:nth-child(3) { background-position: center 65%; }
   .project-card:nth-child(4) { background-position: center 80%; }
+  .project-card.thesis-card { background-image: url("{{ '/assets/images/projects/thesis/melting.gif' | relative_url }}"); background-position: 50% 46%; background-size: auto 220%}
+  .project-card.experiment-card { background: #0b1a26; }
+  .project-card-media { position: absolute; inset: 0; display: flex; }
+  .project-card-media video { width: 50%; height: 100%; object-fit: cover; object-position: center 45%; }
+  .project-card.internship-card { background: #ffffff; }
+  .project-card.internship-card .project-card-media video { width: 100%; object-position: center; }
   .project-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(5, 20, 35, 0.9), rgba(5, 20, 35, 0.16)); }
   .project-card:hover, .project-card:focus-visible { transform: translateY(-4px); box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24); }
   .project-card-text { position: absolute; z-index: 1; right: 1.5rem; bottom: 1.35rem; left: 1.5rem; }
@@ -37,7 +43,7 @@ permalink: /
   <div class="profile-content">
     <div>
       <p>Hi, I’m Lars ten Hacken. Welcome to my website!</p>
-      <p>I recently graduated cum laude (GPA 8.9/10) with an MSc in Applied Physics from Eindhoven University of Technology, having specialized in Fluids, Bio- and Soft Matter. I am passionate about fluid dynamics, soft matter physics, and computational physics. My academic journey includes a visiting researcher appointment at UC Berkeley as well as Tsinghua University. As of September 2026, I am working as an R&D Engineer at FABBS, developing physics-based models for battery management systems, while preparing for PhD applications for the Fall 2027 cycle.</p>
+      <p>I recently graduated cum laude (GPA 8.9/10) with an MSc in Applied Physics from Eindhoven University of Technology, having specialized in Fluids, Bio- and Soft Matter. I am passionate about fluid dynamics, soft matter physics, and computational physics. My academic journey includes a visiting researcher appointment at UC Berkeley as well as Tsinghua University. As of September 2026, I am working as an R&D Engineer at FABBS, developing physics-based models for battery management systems, while preparing for PhD applications for the Fall 2027 cycle. My resume: <a href="{{ '/assets/Lars_ten_Hacken_CV.pdf' | relative_url }}">resume</a></p>
     </div>
     <img class="profile-photo" src="{{ '/assets/images/main/profile.jpeg' | relative_url }}" alt="Portrait of Lars ten Hacken">
   </div>
@@ -54,9 +60,9 @@ permalink: /
   <p>A selection of my physics and computational research projects. Full project pages will be added soon.</p>
   <div class="project-grid">
     <a class="project-card vicsek-card" href="{{ '/projects/project-one/' | relative_url }}" aria-label="Open Collective Motion with the Vicsek Model"><span class="project-card-text"><strong>Collective Motion with the Vicsek Model</strong><span>View project</span></span></a>
-    <a class="project-card" href="{{ '/projects/project-two/' | relative_url }}" aria-label="Open project two"><span class="project-card-text"><strong>Project Two</strong><span>View project</span></span></a>
-    <a class="project-card" href="{{ '/projects/project-three/' | relative_url }}" aria-label="Open project three"><span class="project-card-text"><strong>Project Three</strong><span>View project</span></span></a>
-    <a class="project-card" href="{{ '/projects/project-four/' | relative_url }}" aria-label="Open project four"><span class="project-card-text"><strong>Project Four</strong><span>View project</span></span></a>
+    <a class="project-card thesis-card" href="{{ '/projects/project-two/' | relative_url }}" aria-label="Open Effective Viscosity in a Sheared Melt Layer (Thesis)"><span class="project-card-text"><strong>Effective Viscosity in a Sheared Melt Layer (Thesis)</strong><span>View project</span></span></a>
+    <a class="project-card internship-card" href="{{ '/projects/project-three/' | relative_url }}" aria-label="Open Reconstructing Ocean Waves (Berkeley)"><span class="project-card-media" aria-hidden="true"><video src="{{ '/assets/images/projects/internship/reconstruction-card.mp4' | relative_url }}?v=1" autoplay muted loop playsinline></video></span><span class="project-card-text"><strong>Reconstructing Ocean Waves (Berkeley)</strong><span>View project</span></span></a>
+    <a class="project-card experiment-card" href="{{ '/projects/project-four/' | relative_url }}" aria-label="Open Sheared Melt Experiment (Tsinghua)"><span class="project-card-media" aria-hidden="true"><video src="{{ '/assets/images/projects/thesis_experiment/experiment.mp4' | relative_url }}?v=2" autoplay muted loop playsinline></video><video src="{{ '/assets/images/projects/thesis_experiment/simulation.mp4' | relative_url }}?v=3" autoplay muted loop playsinline></video></span><span class="project-card-text"><strong>Sheared Melt Experiment (Tsinghua)</strong><span>View project</span></span></a>
   </div>
 
   <h3 id="outputs">Outputs</h3>
@@ -77,7 +83,6 @@ permalink: /
 
 <section class="home-section" id="about-me">
   <h2>About Me</h2>
-  <p>During my academic carreer I have developed proficiency in a multitude of programming languages and frameworks aimed at scientific computing, engineering and artificial intelligence. I consider myself well experienced in Python, having done projects involving object-oriented programming and writing modules. Besides Python, I have worked on projects involving control and simulation using Matlab and Simulink, used Wolfram Mathematica for symbolic math and scripting, and have experience working with Git, Linux, C and openACC on fluid simulations and HPC applications.</p>
   <p>Besides my academic carreer, I have been active in a multitude of organisations to broaden my horizon and develop myself both personally and professionaly. From these experiences I would like to highlight:</p>
   <ul>
     <li><p>A year as full time president of Junior Enterprises The Netherlands (<a href="https://www.unipartners.nl/nederland/">UniPartners Nederland</a>), where I was ultimately responsible for the national board and twelve local offices invloving 300+ students/consultants, € 800k turnover and 250+ projects.</p></li>
@@ -85,6 +90,6 @@ permalink: /
     <li><p>Selected as delegate for the <a href="https://www.nahss.nl/en/">Netherlands Asia Honors Summer School</a>, a prestigious programme in Hong Kong and Ho Chi Minh City for the 70 best applicants across Dutch universities. The curriculum focussed on contemporary relations between East Asia and the West.</p></li>
     <li><p>Treasurer of <a href="https://www.business-core.nl/">Business Core Eindhoven</a>, managing a € 60k budget alongside other organisational tasks for Eindhoven's biggest student symposium.</p></li>
   </ul>
-  <p>Check my <a href="{{ '/assets/Lars_ten_Hacken_CV.pdf' | relative_url }}">resume</a>.</p>
+
   <p>Other Links: <a href="https://www.cursor.tue.nl/en/campus/2025/juli/week-1/and-how-are-things-in-berkeley">University Paper (Cursor) Article</a></p>
 </section>
